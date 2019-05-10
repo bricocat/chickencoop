@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <head>
+    <title>my chickencoop</title>
+    <link rel='stylesheet' href='../css/style.css' />
+  </head>
+  <body>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+          
+            var socket = io();
+
+            window.onload = function(){
+
+                socket.emit('get_data');
+            }
+
+            socket.on('set_data', function(msg){
+
+              var obj = JSON.parse(msg);   
+              var myElement = document.getElementById("temp_chickencoop");  
+              myElement.innerHTML = obj.Temp_Chickencoop + " °C";
+
+              myElement = document.getElementById("voltage_battery");  
+              myElement.innerHTML = obj.Voltage_Battery + " V";
+
+            });
+            
+        </script>
+
+      <h2>my chickencoop</h2>
+        
+      <table>
+        <tr>
+            <td><span>Temperature: </span></td><td><span id="temp_chickencoop">NA</span></td>
+        </tr>
+        <tr>
+            <td><span>Battery: </span></td><td><span id="voltage_battery">NA</span></td>
+        </tr>
+      </table>
+      <br>
+
+  </body>
+</html>
