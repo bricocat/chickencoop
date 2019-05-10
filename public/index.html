@@ -25,6 +25,10 @@
               myElement = document.getElementById("voltage_battery");  
               myElement.innerHTML = obj.Voltage_Battery + " V";
 
+              myElement = document.getElementById("door_status");  
+              myElement.innerHTML = obj.Door_Status;
+
+
             });
             
         </script>
@@ -37,6 +41,9 @@
         </tr>
         <tr>
             <td><span>Battery: </span></td><td><span id="voltage_battery">NA</span></td>
+        </tr>
+        <tr>
+            <td><span>Door status: </span></td><td><span id="door_status">NA</span></td>
         </tr>
       </table>
       <br>

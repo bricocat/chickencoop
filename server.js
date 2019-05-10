@@ -9,6 +9,7 @@ var _data = require('./data');
 
 var voltage_battery = require('./mcp3201')(_data);
 var temp_chickencoop = require('./ds1820-temp')(_data);
+var door = require('./door')(_data);
 
 io.on('connection', function (socket) {
   

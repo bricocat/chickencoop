@@ -11,7 +11,8 @@
   "dependencies": {
     "ds1820-temp": "^1.0.0",
     "express": "^4.16.4",
-    "spi-device": "~2.0.5",
-    "socket.io": "^2.2.0"
+    "onoff": "^4.1.1",
+    "socket.io": "^2.2.0",
+    "spi-device": "~2.0.5"
   }
 }
