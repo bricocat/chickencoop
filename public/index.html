@@ -44,6 +44,8 @@
         </tr>
         <tr>
             <td><span>Door status: </span></td><td><span id="door_status">NA</span></td>
+            <td><button type="button" onclick="socket.emit('door_open');">Open</button></td>
+            <td><button type="button" onclick="socket.emit('door_close');">Close</button></td>
         </tr>
       </table>
       <br>

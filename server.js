@@ -9,7 +9,8 @@ var _data = require('./data');
 
 var voltage_battery = require('./mcp3201')(_data);
 var temp_chickencoop = require('./ds1820-temp')(_data);
-var door = require('./door')(_data);
+var door = require('./door');
+door.Watch(_data);
 
 io.on('connection', function (socket) {
   
@@ -19,9 +20,15 @@ io.on('connection', function (socket) {
       io.emit('set_data', JSON.stringify(_data));
     }, 1000);
          
-    socket.on('get_data', function(){
+    socket.on('door_open', function(){
   
-      io.emit('set_data', JSON.stringify(_data));
+      door.Open();
+    });
+
+  
+    socket.on('door_close', function(){
+  
+      door.Close();
     });
 
     socket.on('disconnect', function(){
