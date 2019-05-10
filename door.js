@@ -7,8 +7,9 @@ const time_open_close = 50000; //50 sec time to close or open the door
 exports.Watch = function(data){
 
     door_closed_sensor.watch((err, value) => {
+
         if (err) {
-        throw err;
+            throw err;
         }
     
         switch(value){
@@ -27,36 +28,37 @@ exports.Watch = function(data){
     });   
 }
 
-exports.Open = function(){
+exports.Open = function(data){
 
     door_close.write(0, function(){
 
         setTimeout(function(){
+            data.Door_Message_Open = 'opening...';
             door_open.write(1, function(){
                 setTimeout(function(){
                     door_open.writeSync(0);
+                    data.Door_Message_Open = 'Last: ' + new Date(Date.now()).toLocaleString();
                 },time_open_close);
             });
         }, 1000);
     });
-
-    console.log('OPEN');
 }
 
-exports.Close = function(){
+exports.Close = function(data){
 
     door_open.write(0, function(){
 
         setTimeout(function(){
             door_close.write(1, function(){
+                data.Door_Message_Close = 'closing...';
                 setTimeout(function(){
                     door_close.writeSync(0);
+                    data.Door_Message_Close = 'Last: ' + new Date(Date.now()).toLocaleString();
                 },time_open_close);
             });
         }, 1000);
     });
 }
-
 
 process.on('SIGINT', () => {
     door_open.unexport();

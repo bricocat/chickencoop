@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <head>
     <title>my chickencoop</title>
-    <link rel='stylesheet' href='../css/style.css' />
+    <!--<link rel='stylesheet' href='../css/style.css' />-->
   </head>
   <body>
         <script src="/socket.io/socket.io.js"></script>
@@ -28,7 +28,32 @@
               myElement = document.getElementById("door_status");  
               myElement.innerHTML = obj.Door_Status;
 
+              myElement = document.getElementById("door_message_open");  
+              myElement.innerHTML = obj.Door_Message_Open;
 
+              myElement = document.getElementById("door_message_close");  
+              myElement.innerHTML = obj.Door_Message_Close;
+
+              myElement = document.getElementById("water_message");  
+              myElement.innerHTML = obj.Water_Message;
+
+              myElement = document.getElementById("food_message");  
+              myElement.innerHTML = obj.Food_Message;
+
+              myElement = document.getElementById("control_mode"); 
+              if(obj.AUTOMATIC){
+                myElement.innerHTML = "AUTOMATIC";
+              }
+              else{
+                myElement.innerHTML = "MANUAL";
+              }
+
+              myElement = document.getElementById("sunrise");  
+              myElement.innerHTML = obj.Sunrise;
+
+              myElement = document.getElementById("sunset");  
+              myElement.innerHTML = obj.Sunset;
+              
             });
             
         </script>
@@ -37,6 +62,15 @@
         
       <table>
         <tr>
+            <td><button onclick="socket.emit('toggle_control_mode');">Control Mode</button></td><td><span id="control_mode">NA</span></td>
+        </tr>
+        <tr>
+            <td><span>Sunrise:</span></td><td><span id="sunrise">NA</span></td>
+        </tr>
+        <tr>
+            <td><span>Sunset:</span></td><td><span id="sunset">NA</span></td>
+        </tr>
+        <tr>
             <td><span>Temperature: </span></td><td><span id="temp_chickencoop">NA</span></td>
         </tr>
         <tr>
@@ -44,8 +78,18 @@
         </tr>
         <tr>
             <td><span>Door status: </span></td><td><span id="door_status">NA</span></td>
-            <td><button type="button" onclick="socket.emit('door_open');">Open</button></td>
-            <td><button type="button" onclick="socket.emit('door_close');">Close</button></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick="socket.emit('door_open');">Open</button></td><td><span id="door_message_open">NA</span></td>
+        </tr>
+        <tr>
+                <td><button type="button" onclick="socket.emit('door_close');">Close</button></td><td><span id="door_message_close">NA</span></td>
+            </tr>
+        <tr>
+            <td><button type="button" onclick="socket.emit('water_open');">Water</button></td><td><span id="water_message">NA</span></td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick="socket.emit('food_open');">Food</button></td><td><span id="food_message">NA</span></td>
         </tr>
       </table>
       <br>
