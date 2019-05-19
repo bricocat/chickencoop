@@ -38,9 +38,7 @@ const sunSet = [
         return Math.max(jan, jul) != d.getTimezoneOffset(); 
     }
 
-exports.GetSunrise = function GetSunrise(){
-
-    var currDate = new Date(Date.now());
+exports.GetSunrise = function GetSunrise(currDate){
 
     var sunRiseHour = sunRise[currDate.getMonth()][currDate.getDate() - 1][0];
     var sunRiseMinute = sunRise[currDate.getMonth()][currDate.getDate() - 1][1];
@@ -52,9 +50,7 @@ exports.GetSunrise = function GetSunrise(){
     return new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate(), sunRiseHour, sunRiseMinute, 0,0);
 }
 
-exports.GetSunset = function GetSunset(){
-
-    var currDate = new Date(Date.now());
+exports.GetSunset = function GetSunset(currDate){
 
     var sunSetHour = sunSet[currDate.getMonth()][currDate.getDate() - 1][0];
     var sunSetMinute = sunSet[currDate.getMonth()][currDate.getDate() - 1][1];

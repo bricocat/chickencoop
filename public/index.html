@@ -21,6 +21,9 @@
               var obj = JSON.parse(msg);   
               var myElement = document.getElementById("temp_chickencoop");  
               myElement.innerHTML = obj.Temp_Chickencoop + " °C";
+            
+              myElement = document.getElementById("current_date_time");
+              myElement.innerHTML = new Date(obj.CurrentDateTime).toDateString();
 
               myElement = document.getElementById("voltage_battery");  
               myElement.innerHTML = obj.Voltage_Battery + " V";
@@ -40,14 +43,6 @@
               myElement = document.getElementById("food_message");  
               myElement.innerHTML = obj.Food_Message;
 
-              myElement = document.getElementById("control_mode"); 
-              if(obj.AUTOMATIC){
-                myElement.innerHTML = "AUTOMATIC";
-              }
-              else{
-                myElement.innerHTML = "MANUAL";
-              }
-
               myElement = document.getElementById("sunrise");  
               myElement.innerHTML = obj.Sunrise;
 
@@ -62,7 +57,7 @@
         
       <table>
         <tr>
-            <td><button onclick="socket.emit('toggle_control_mode');">Control Mode</button></td><td><span id="control_mode">NA</span></td>
+            <td><span>Date:</span></td><td><span id="current_date_time">NA</span></td>
         </tr>
         <tr>
             <td><span>Sunrise:</span></td><td><span id="sunrise">NA</span></td>

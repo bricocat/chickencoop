@@ -15,11 +15,11 @@ exports.Watch = function(data){
         switch(value){
             case 0:
                 //door closed
-                data.Door_Status = 'Closed'
+                data.Door_Status = 'CLOSED'
                 break;
             case 1:
                 //door open
-                data.Door_Status = 'Open'
+                data.Door_Status = 'OPEN'
                 break;
             default:
                 data.Door_Status = 'n.a.'

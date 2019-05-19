@@ -1,6 +1,6 @@
 module.exports = {
     
-    AUTOMATIC:true,
+    CurrentDateTime:NaN,
     Temp_Chickencoop:NaN,
     Voltage_Battery:NaN,
     Door_Status:"n.a.",
