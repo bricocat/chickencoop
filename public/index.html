@@ -22,8 +22,13 @@
               var myElement = document.getElementById("temp_chickencoop");  
               myElement.innerHTML = obj.Temp_Chickencoop + " °C";
             
-              myElement = document.getElementById("current_date_time");
-              myElement.innerHTML = new Date(obj.CurrentDateTime).toDateString();
+              var currDateTime = new Date(obj.CurrentDateTime);
+
+              myElement = document.getElementById("current_date");
+              myElement.innerHTML = currDateTime.getFullYear() + '-' + (currDateTime.getMonth() + 1) + '-' + currDateTime.getDate();
+
+              myElement = document.getElementById("current_time");
+              myElement.innerHTML = currDateTime.getHours() + ':' + currDateTime.getMinutes();
 
               myElement = document.getElementById("voltage_battery");  
               myElement.innerHTML = obj.Voltage_Battery + " V";
@@ -37,17 +42,28 @@
               myElement = document.getElementById("door_message_close");  
               myElement.innerHTML = obj.Door_Message_Close;
 
+              /*
               myElement = document.getElementById("water_message");  
               myElement.innerHTML = obj.Water_Message;
 
               myElement = document.getElementById("food_message");  
               myElement.innerHTML = obj.Food_Message;
+              */
 
               myElement = document.getElementById("sunrise");  
               myElement.innerHTML = obj.Sunrise;
 
+              
               myElement = document.getElementById("sunset");  
               myElement.innerHTML = obj.Sunset;
+
+              myElement = document.getElementById("fixopen");
+              if(obj.Fix_Open_Time_Active){
+                myElement.innerHTML = obj.Fix_Open_Time[0] + ':' + obj.Fix_Open_Time[1];
+              } 
+              else{
+                myElement.innerHTML = 'not set';
+              }
               
             });
             
@@ -57,7 +73,10 @@
         
       <table>
         <tr>
-            <td><span>Date:</span></td><td><span id="current_date_time">NA</span></td>
+            <td><span>Date:</span></td><td><span id="current_date">NA</span></td>
+        </tr>
+        <tr>
+            <td><span>Time:</span></td><td><span id="current_time">NA</span></td>
         </tr>
         <tr>
             <td><span>Sunrise:</span></td><td><span id="sunrise">NA</span></td>
@@ -75,17 +94,20 @@
             <td><span>Door status: </span></td><td><span id="door_status">NA</span></td>
         </tr>
         <tr>
+            <td><button onclick="window.location.href = 'fixopen.html';">Fix open</button></td><td><span id="fixopen">NA</span></td>
+        </tr>
+        <tr>
             <td><button type="button" onclick="socket.emit('door_open');">Open</button></td><td><span id="door_message_open">NA</span></td>
         </tr>
         <tr>
                 <td><button type="button" onclick="socket.emit('door_close');">Close</button></td><td><span id="door_message_close">NA</span></td>
             </tr>
-        <tr>
+        <!--<tr>
             <td><button type="button" onclick="socket.emit('water_open');">Water</button></td><td><span id="water_message">NA</span></td>
         </tr>
         <tr>
             <td><button type="button" onclick="socket.emit('food_open');">Food</button></td><td><span id="food_message">NA</span></td>
-        </tr>
+        </tr>-->
       </table>
       <br>
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <head>
+    <title>my chickencoop</title>
+    <!--<link rel='stylesheet' href='../css/style.css' />-->
+  </head>
+  <body>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+          
+            var socket = io();
+            var dataAreSet = false;
+
+            window.onload = function(){
+
+                socket.emit('get_data');
+            }
+
+            socket.on('set_data', function(msg){
+
+              if(dataAreSet){ return; }
+
+              var obj = JSON.parse(msg);   
+              var myElement = document.getElementById("hour");  
+              myElement.value = obj.Fix_Open_Time[0];
+        
+              myElement = document.getElementById("minute");
+              myElement.value = obj.Fix_Open_Time[1];
+
+              myElement = document.getElementById("active");
+              myElement.checked = obj.Fix_Open_Time_Active;
+
+              dataAreSet = true;
+              
+            });
+
+            function setFixOpen(){
+
+                var hour = document.getElementById("hour").value;
+                
+                var minute = document.getElementById("minute").value;
+
+                var active = document.getElementById("active").checked;
+
+                var msg = [hour, minute, active];
+                socket.emit('set_fix_open', msg);
+                window.location.href = 'index.html';
+            }
+            
+        </script>
+
+      <h2>my chickencoop</h2>
+
+      <h3>fix open time configuration</h3>
+        
+      <table>
+        <tr>
+            <td><span>Hour:</span></td><td><input type="number" min="5" max="12" id="hour"></input></td>
+        </tr>
+        <tr>
+            <td><span>Minute:</span></td><td><input type="number" min="0" max="59" id="minute"></input></td>
+        </tr>
+        <tr>
+            <td><span>Active:</span></td><td><input type="checkbox" id="active"></input></td>
+        </tr>
+      </table>
+      <br>
+      <button onclick="window.location.href = 'index.html';">Close</button>
+      <button onclick="setFixOpen();">Set</button>
+
+  </body>
+</html>

@@ -1,8 +1,8 @@
 var sun = require('./sunrisesunset');
 var sunrise, sunset, currHour;
 var openCheckStart = 6;
-var openCheckEnd = 15;
-var closeCheckStart = 16;
+var openCheckEnd = 16;
+var closeCheckStart = 17;
 var closeCheckEnd = 4;
 var closeBuffer = 20 * 60000; //20 min buffer time
 
@@ -29,15 +29,46 @@ function Perform(data, door){
 
     currHour = data.CurrentDateTime.getHours();
 
-
     //check for opening
     if('OPEN' != data.Door_Status){
 
-        if(data.Fix_Open_Time_Active){
-                console.log('fix open');
-        }
-        else if(currHour >= openCheckStart && currHour <= openCheckEnd){
-            console.log('open check');
+        
+        if(currHour >= openCheckStart && currHour <= openCheckEnd){
+
+            if(data.Fix_Open_Time_Active){
+                
+                console.log('fix open check');
+              
+
+                var fixOpenTime = new Date(data.CurrentDateTime.getFullYear(), 
+                                            data.CurrentDateTime.getMonth(), 
+                                            data.CurrentDateTime.getDate(), 
+                                            data.Fix_Open_Time[0], 
+                                            data.Fix_Open_Time[1], 
+                                            0,0);
+
+                                            console.log(fixOpenTime - data.CurrentDateTime);
+
+                if(0 > (fixOpenTime - data.CurrentDateTime)){
+
+                        console .log('OOOOOPEN FIX');
+                    }
+                 
+            }
+            else{
+
+                console.log('open check sun rise');
+
+                console.log(sunrise - data.CurrentDateTime);
+
+                if(0 > (sunrise - data.CurrentDateTime)){
+                    //time to open
+                    console .log('OOOOOPEN');
+                    //door.Open(data);
+                }
+            }
+
+            
         }
     }
     

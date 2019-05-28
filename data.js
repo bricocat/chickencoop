@@ -8,8 +8,8 @@ module.exports = {
     Door_Message_Close:"n.a.",
     Water_Message:"n.a.",
     Food_Message:"n.a.",
-    Fix_Open_Time:NaN,
-    Fix_Open_Time_Active:false,
+    Fix_Open_Time:[7,30],
+    Fix_Open_Time_Active:true,
     Sunrise:"n.a.",
     Sunset:"n.a."
 }

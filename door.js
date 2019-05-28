@@ -2,7 +2,7 @@ const Gpio = require('onoff').Gpio;
 const door_open = new Gpio(24, 'out');
 const door_close = new Gpio(23, 'out');
 const door_closed_sensor = new Gpio(22, 'in', 'both');
-const time_open_close = 50000; //50 sec time to close or open the door
+const time_open_close = 40000; //50 sec time to close or open the door
 
 exports.Watch = function(data){
 

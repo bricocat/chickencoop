@@ -43,6 +43,13 @@ io.on('connection', function (socket) {
       feed.Food(_data);
     });
 
+    socket.on('set_fix_open', function(msg){
+
+      _data.Fix_Open_Time[0] = msg[0];
+      _data.Fix_Open_Time[1] = msg[1];
+      _data.Fix_Open_Time_Active = msg[2];
+    });
+
     socket.on('disconnect', function(){
   
       console.log('user disconnected');
