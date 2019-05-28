@@ -6,26 +6,39 @@ const time_open_close = 40000; //50 sec time to close or open the door
 
 exports.Watch = function(data){
 
+    door_closed_sensor.read((err, value) => { // Asynchronous read
+        if (err) {
+          throw err;
+        }
+     
+        setStatus(data, value);
+    });
+
     door_closed_sensor.watch((err, value) => {
 
         if (err) {
             throw err;
         }
     
-        switch(value){
-            case 0:
-                //door closed
-                data.Door_Status = 'CLOSED'
-                break;
-            case 1:
-                //door open
-                data.Door_Status = 'OPEN'
-                break;
-            default:
-                data.Door_Status = 'n.a.'
-                break;
-        }
+        setStatus(data, value);
     });   
+}
+
+function setStatus(data, value){
+
+    switch(value){
+        case 0:
+            //door closed
+            data.Door_Status = 'CLOSED'
+            break;
+        case 1:
+            //door open
+            data.Door_Status = 'OPEN'
+            break;
+        default:
+            data.Door_Status = 'n.a.'
+            break;
+    }
 }
 
 exports.Open = function(data){

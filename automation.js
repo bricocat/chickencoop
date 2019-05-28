@@ -30,7 +30,7 @@ function Perform(data, door){
     currHour = data.CurrentDateTime.getHours();
 
     //check for opening
-    if('OPEN' != data.Door_Status){
+    if('CLOSED' == data.Door_Status){
 
         
         if(currHour >= openCheckStart && currHour <= openCheckEnd){
@@ -52,6 +52,7 @@ function Perform(data, door){
                 if(0 > (fixOpenTime - data.CurrentDateTime)){
 
                         console .log('OOOOOPEN FIX');
+                        door.Open(data);
                     }
                  
             }
@@ -64,7 +65,7 @@ function Perform(data, door){
                 if(0 > (sunrise - data.CurrentDateTime)){
                     //time to open
                     console .log('OOOOOPEN');
-                    //door.Open(data);
+                    door.Open(data);
                 }
             }
 
